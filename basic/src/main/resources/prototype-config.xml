@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"  
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.springframework.org/schema/beans  
+http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- 디폴트는 scope="singleton" / scope="prototype" 설정하면 객체 꺼낼때마다 새로운 객체 만들어짐 
+	     scope="prototype" 일 경우 만들 때는 아래 내용으로 만들어지지만 setter통해 변경하면 해당 객체만 변경됨-->
+	
+	<bean id="person" class="com.spring.basic.ex03.Person" scope="prototype"> 
+		<property name="name" value="홍길동"/>
+		<property name="age" value="20"/>
+	</bean>
+
+</beans>
