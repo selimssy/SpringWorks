@@ -8,7 +8,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+	
+	
+	
 	<h2>학생들의 전체 성적 조회</h2>
 
 	<c:forEach var="stu" items="${sList}" varStatus="stuNum">
@@ -23,6 +25,15 @@
 
 
 	<a href="/web/score/register">다른 점수 등록하기</a>
-
+	
+	
+	<script type="text/javascript">
+		let msg = "${message}"  // 자바스크립트도 el 쓸 수 있고  // 문자는 "" 안에 el태그 넣어야ㅠ  
+		
+		if(msg === "delSuccess"){
+			alert("점수 삭제 완료!")
+		}
+	</script>
+	
 </body>
 </html>

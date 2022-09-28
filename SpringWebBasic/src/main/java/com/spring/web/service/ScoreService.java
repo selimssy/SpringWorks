@@ -33,9 +33,13 @@ public class ScoreService implements IScoreService {
 
 	@Override
 	public void deleteScore(int stuNum) {
-		dao.deleteScore(stuNum);
+		dao.deleteScore(stuNum - 1);  // 이런걸 service에서 해야!
 	}
 
- 
+	
+	
+	public ScoreVO selectOne(int stuNum) {
+		return dao.selectOne(stuNum - 1);
+	}
 
 }

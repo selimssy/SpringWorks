@@ -14,4 +14,8 @@ public interface IScoreDAO {
 	
 	// 점수 삭제기능
 	void deleteScore(int stuNum);
+	
+	
+	// 점수 개별조회 기눙
+	ScoreVO selectOne(int stuNum);
 }
