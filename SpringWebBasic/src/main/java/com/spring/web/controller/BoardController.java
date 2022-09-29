@@ -73,7 +73,7 @@ public class BoardController {
 	@PostMapping("/modify")
 	public String modify(BoardVO article, int boardNo) {
 		service.modifyArticle(article, boardNo);
-		return "redirect:/board/list";
+		return "redirect:/board/content?boardNo=" + boardNo;
 	}
 		
 	
