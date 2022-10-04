@@ -68,7 +68,7 @@ public class ScoreController {
 		System.out.println("삭제할 학생 번호 : " + stuId + "번");
 		service.deleteScore(stuId);
 		ra.addFlashAttribute("message", "delSuccess");
-		return "redirect:/score2/list";
+		return "redirect:/mybatis/score/list";  // redirect 뒤에는 path루트 제외한 모든것! 따라서 mybatis도 적어줘야!
 	}
 	
 	
@@ -98,14 +98,14 @@ public class ScoreController {
 			
 			if(n > list.size()) {
 				ra.addFlashAttribute("msg", "학번정보가 없습니다."); // 근데 이건 중간에 삭제해서 학생 수는 5명인데 7번까지 있으면 에러난다! 개선필요!!
-				return "redirect:/score2/search";
+				return "redirect:/mybatis/score/search";
 			} else {
 				model.addAttribute("stu", service.selectOne(n));
 				return "score2/selectOne";
 			}
 		} catch(NumberFormatException e) {
 			ra.addFlashAttribute("msg", "숫자로만 입력하세요!");
-			return "redirect:/score2/search";
+			return "redirect:/mybatis/score/search";
 		}
 		
 	}

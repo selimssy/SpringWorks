@@ -13,7 +13,7 @@ import com.spring.database.mybatis.score.repository.IScoreMapper;
 @Service("scoreService2")
 public class ScoreService implements IScoreService {
 
-	//@Autowired
+	@Autowired
 	private IScoreMapper dao;
 
 	

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+    
+    
+<mapper namespace="com.spring.database.mybatis.score.repository.IScoreMapper">
+	
+	
+	<!-- DB 컬럼명과 VO의 필드명을 맞추는 ResultMap 선언 -->
+	<resultMap id="ScoreMap" type="com.spring.database.mybatis.score.model.ScoreVO"><!-- id는 내맘대로하고 resultMap에 넣어준다, type은 VO타입(패키지명 포함한 풀경로) -->
+		<id property="stuId" column="stu_id" />  <!-- primary key는 id태그로 맵핑, 그 외 컬럼들은 result 태그로 맵핑 -->
+		<result property="stuName" column="stu_name"/>
+		<result property="kor" column="kor"/>
+		<result property="eng" column="eng"/>
+		<result property="math" column="math"/>
+		<result property="total" column="total"/>
+		<result property="average" column="average"/>
+	</resultMap>
+	
+	
+	
+	<!-- 점수 등록 기능 -->
+	<insert id="insertScore"> 
+		INSERT INTO scores (stu_name, kor, eng, math, total, average) 
+		VALUES (#{stuName}, #{kor}, #{eng}, #{math}, #{total}, #{average})    
+	</insert>
+	
+	
+	
+	<!-- 전체학생 점수 조회 기능 -->
+	<select id="selectAll" resultMap="ScoreMap">  <!-- list로 리턴해야할 땐 list로, 하나일 땐 vo로 알아서 리턴한다는데 service에서 받는 타입이 List<ScoreVO>인데 VO로 리턴받으면 어떻게 되는거지....? -->
+		SELECT * FROM scores
+	</select>
+	
+	
+	
+	<!-- 점수 삭제 기능 -->
+	<delete id="deleteScore">
+		DELETE FROM scores WHERE stu_id = #{stuNum}
+	</delete>
+	
+	
+	
+</mapper>

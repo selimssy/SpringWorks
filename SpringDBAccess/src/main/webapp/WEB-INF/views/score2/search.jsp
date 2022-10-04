@@ -8,7 +8,7 @@
 </head>
 <body>
 	
-	<form action="/db/score/selectOne" >
+	<form action="/db/mybatis/score/selectOne" >
 		<p>
 			- 조회할 학번 : <input type="text" name="stuId" size="5">
 			<input type="submit" value="조회">

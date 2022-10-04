@@ -11,9 +11,9 @@
 	<h2>점수 등록 성공!</h2>
 
 	<p>
-		<a href="/db/score/register">다른 점수 등록하기</a>
-		<a href="/db/score/list">점수 전체 조회</a>
-		<a href="/db/score/search">점수 개별 조회</a>
+		<a href="/db/mybatis/score/register">다른 점수 등록하기</a>
+		<a href="/db/mybatis/score/list">점수 전체 조회</a>
+		<a href="/db/mybatis/score/search">점수 개별 조회</a>
 	</p>
 
 </body>

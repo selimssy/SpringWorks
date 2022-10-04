@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
 	
 	<!-- JDBC, DB 관련 빈을 등록하고 관리하는 설정파일 -->
 	
@@ -28,7 +30,14 @@
 	<!-- 마이바티스 SQL 동작을 위한 핵심객체 SqlSessionFactory 클래스 빈 등록 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="ds"/>
+		<property name="mapperLocations"  value="classpath:mappers/**/*Mapper.xml" /> <!-- ** : 중간경로 상관없다 *Mapper.xml : ~Mapper로 끝나는 모든 xml파일 -->
+		<!-- 그리고 아래 탭의 Namespaces에서 mybatis-spring 체크해야! -->
 	</bean>
+	
+	
+	
+	<!-- 마이바티스 xml 파일을 빈으로 등록하기 위한 스캔 설정 -->
+	<mybatis-spring:scan base-package="com.spring.database.mybatis.score.repository"/>
 		
 		
 </beans>

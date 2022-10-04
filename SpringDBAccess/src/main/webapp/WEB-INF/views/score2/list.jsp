@@ -19,14 +19,14 @@
 			- 학번 : ${stu.stuId}, 이름 : ${stu.stuName}, 국어 : ${stu.kor}, 영어 : ${stu.eng}, 
 			  수학 : ${stu.math}, 총점 : ${stu.total}, 평균 : ${stu.average}
 			  &nbsp; 
-			  <a href="/db/score/delete?stuId=${stu.stuId}">[삭제]</a>
+			  <a href="/db/mybatis/score/delete?stuId=${stu.stuId}">[삭제]</a>
 		</p>
 	</c:forEach>
 
 
-	<a href="/db/score/register">다른 점수 등록하기</a>
-	<a href="/db/score/list">점수 전체 조회</a>
-	<a href="/db/score/search">점수 개별 조회</a>
+	<a href="/db/mybatis/score/register">다른 점수 등록하기</a>
+	<a href="/db/mybatis/score/list">점수 전체 조회</a>
+	<a href="/db/mybatis/score/search">점수 개별 조회</a>
 	
 	
 	<script type="text/javascript">
