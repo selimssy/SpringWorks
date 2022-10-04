@@ -8,9 +8,9 @@
 </head>
 <body>
 	
-	<form action="/web/score/selectOne" >
+	<form action="/db/score/selectOne" >
 		<p>
-			- 조회할 학번 : <input type="text" name="stuNum" size="5">
+			- 조회할 학번 : <input type="text" name="stuId" size="5">
 			<input type="submit" value="조회">
 		</p>
 	</form>

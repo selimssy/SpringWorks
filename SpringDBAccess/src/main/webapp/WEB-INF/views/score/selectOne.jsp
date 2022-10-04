@@ -18,9 +18,9 @@
 		총점 : ${stu.total} <br>
 		평균 : ${stu.average} <br>
 		
-		<a href="/web/score/register">다른 점수 등록하기</a>
-		<a href="/web/score/list">점수 전체 조회</a>
-		<a href="/web/score/search">점수 개별 조회</a>
+		<a href="/db/score/register">다른 점수 등록하기</a>
+		<a href="/db/score/list">점수 전체 조회</a>
+		<a href="/db/score/search">점수 개별 조회</a>
 	</p>
 	
 </body>

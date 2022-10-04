@@ -79,17 +79,18 @@ public class ScoreController {
 	
 	// 특정학생 데이터 요청, 출력 메서드
 	@GetMapping("/selectOne") 
-	public String selectOne(String stuNum, Model model,
+	public String selectOne(String stuId, Model model,
 							RedirectAttributes ra) {
 		System.out.println("/score/selectOne: GET");
 		
 		List<ScoreVO> list = service.selectAll();
 		
 		try {
-			int n = Integer.parseInt(stuNum);
+			int n = Integer.parseInt(stuId);
+			System.out.println(list.size());
 			
 			if(n > list.size()) {
-				ra.addFlashAttribute("msg", "학번정보가 없습니다.");
+				ra.addFlashAttribute("msg", "학번정보가 없습니다."); // 근데 이건 중간에 삭제해서 학생 수는 5명인데 7번까지 있으면 에러난다! 개선필요!!
 				return "redirect:/score/search";
 			} else {
 				model.addAttribute("stu", service.selectOne(n));

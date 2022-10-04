@@ -25,7 +25,9 @@ public class AnonymousTest {
 			}			
 		}.run();
 		
-		//lambda식 적용: 인터페이스 안에 추상메서드가 단 하나일경우만 가능!
+		
+		
+		//lambda식 적용: 인터페이스 안에 추상메서드가 단 하나일경우만 가능! (= 함수형 인터페이스)
 		Car tucson = () -> {System.out.println("투싼이 달립니다.");};
 		tucson.run();
 		
@@ -49,7 +51,7 @@ public class AnonymousTest {
 		};
 		System.out.println(casio.add(100, 200));
 		
-		Calculator shaomi = (x, y) -> x + y;
+		Calculator shaomi = (x, y) -> x + y;   // return 말고 할거 없을 때!
 		System.out.println("샤오미 결과: " + shaomi.add(30, 50));
 
 	}

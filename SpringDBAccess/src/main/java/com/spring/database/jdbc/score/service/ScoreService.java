@@ -38,8 +38,8 @@ public class ScoreService implements IScoreService {
 
 	
 	
-	public ScoreVO selectOne(int stuNum) {
-		return dao.selectOne(stuNum - 1);
+	public ScoreVO selectOne(int stuId) {
+		return dao.selectOne(stuId);
 	}
 
 }
