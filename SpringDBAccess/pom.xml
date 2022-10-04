@@ -40,6 +40,23 @@
 		    <version>${org.springframework-version}</version>
 		</dependency>
 		
+		
+		<!-- 마이바티스 라이브러리 추가 -->
+		<dependency>
+		    <groupId>org.mybatis</groupId>
+		    <artifactId>mybatis</artifactId>
+		    <version>3.4.6</version>
+		</dependency>
+		
+		
+		<!-- 마이바티스와 스프링을 연동해주는 라이브러리 -->
+		<dependency>
+		    <groupId>org.mybatis</groupId>
+		    <artifactId>mybatis-spring</artifactId>
+		    <version>2.0.6</version>
+		</dependency>
+		
+		
 		<!-- MySQL Connector/J -->
 		<dependency>
 		    <groupId>mysql</groupId>

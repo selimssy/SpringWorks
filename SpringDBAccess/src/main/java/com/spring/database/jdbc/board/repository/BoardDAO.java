@@ -101,5 +101,17 @@ public class BoardDAO implements IBoardDAO {
 		template.update(sql, article.getWriter(), article.getTitle(), article.getContent(), article.getBoardNo());   
 		
 	}
-
+	
+	
+	
+	
+	
+	// 게시물 검색
+	@Override
+	public List<BoardVO> getSearchList(String keyword) {
+		String sql = "SELECT * FROM jdbc_board WHERE writer LIKE ? ORDER BY board_no DESC";  // 주의!! %처리는 service에서 해야한다!!★		
+		return template.query(sql, new BoardMapper(), keyword);
+	}
+	
+	
 }

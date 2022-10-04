@@ -21,4 +21,7 @@ public interface IBoardService {
 	// 게시글 수정
 	void modifyArticle(BoardVO article);
 	
+	// 게시글 검색
+	List<BoardVO> getSearchList(String keyword);
+	
 }

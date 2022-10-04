@@ -52,5 +52,15 @@ public class BoardService implements IBoardService {
 	public void modifyArticle(BoardVO article) {
 		dao.modifyArticle(article);
 	}
+	
+	
+	
+	
+	// 게시글 검색
+	@Override
+	public List<BoardVO> getSearchList(String keyword) {
+		keyword = "%" + keyword + "%";
+		return dao.getSearchList(keyword);
+	}
 
 }

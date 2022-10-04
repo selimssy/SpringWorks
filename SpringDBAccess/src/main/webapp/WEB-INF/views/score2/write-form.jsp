@@ -11,7 +11,7 @@
 
 	<h2>시험 점수 등록</h2>
 
-	<form action="/db/score/register" method="post">
+	<form action="/db/mybatis/score/register" method="post">
 		<p>
 			이름 : <input name="stuName"><br>
 			국어 : <input name="kor"><br>

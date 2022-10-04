@@ -1,5 +1,7 @@
 package com.spring.database.jdbc.board.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -77,6 +79,15 @@ public class BoardController {
 	}
 		
 	
+	
+	
+	// 게시글 검색처리 요청
+	@GetMapping("/searchList")
+	public String searchList(String keyword, Model model) {
+		List<BoardVO> list = service.getSearchList(keyword);
+		model.addAttribute("aList", list);
+		return "board/list";
+	}
 	
 	
 	
