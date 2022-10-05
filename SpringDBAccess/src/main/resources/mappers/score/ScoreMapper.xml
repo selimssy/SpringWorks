@@ -42,4 +42,10 @@
 	
 	
 	
+	
+	<!-- 점수 개별조회 기능 -->
+	<select id="selectOne" resultMap="ScoreMap">
+		SELECT * FROM scores WHERE stu_id = #{stuNum}
+	</select>
+	
 </mapper>

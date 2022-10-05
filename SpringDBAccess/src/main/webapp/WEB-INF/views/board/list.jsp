@@ -41,12 +41,12 @@
 			
 			<br>
 			<form action="/db/board/searchList">
-			<!--
+			<!--  	
 				<select name="option">
 					<option value="writer">작성자</option>
 					<option value="title">제목</option>
 					<option value="content">내용</option>
-				</select>  -->
+				</select> -->
 				<input type="text" name="keyword" placeholder="검색할 내용을 입력하세요">
 				<input type="submit" value="검색">
 			</form>
