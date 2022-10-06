@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <jsp:include page="../include/header.jsp" />
 <style>
 header.masthead {
@@ -16,7 +17,7 @@ header.masthead {
       <div class="card-header text-white" style="background-color: #ff52a0;"> 게시글 등록</div>
       <div class="card-body">
 
-        <form role="form" action="#" method="post">
+        <form role="form" action="<c:url value='/board/write' />" method="post">
         
           <div class="form-group">
             <label>작성자</label>
@@ -47,4 +48,8 @@ header.masthead {
   </div>
 </div>
 </div>
+
+
+
+
 <jsp:include page="../include/footer.jsp" />

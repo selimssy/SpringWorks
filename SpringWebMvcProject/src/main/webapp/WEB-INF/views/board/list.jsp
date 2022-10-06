@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%> <!-- 포맷 관련 태그 라이브러리(JSTL/fmt) -->
 <jsp:include page="../include/header.jsp" />
 <style>
 header.masthead {
@@ -49,18 +49,23 @@ header.masthead {
 						</thead>
 
 						<!-- 게시물이 들어갈 공간 -->
-							<tr style="color: #ff52a0;">
-								<td>글번호</td>
-								<td>이름</td>
 
-								<td><a style="margin-top: 0; height: 40px; color: orange;" href="#">
-										제목
+						<c:forEach var="B" items="${articles}">
+							<tr style="color: #ff52a0;">
+								<td>${B.boardNo}</td>
+								<td>${B.writer}</td>
+						
+								<td><a style="margin-top: 0; height: 40px; color: orange;" href="<c:url value='/board/content/${B.boardNo}' />">
+										${B.title}
 									</a>
 								</td>
-
-								<td>날짜</td>
-								<td>조회수</td>
+						
+								<td>
+									<fmt:formatDate value="${B.regDate}" pattern="yyyy년 MM월 dd일 a hh:mm" />							
+								</td>
+								<td>${B.viewCnt}</td>
 							</tr>
+						</c:forEach>
 						
 					</table>
 					
@@ -104,11 +109,27 @@ header.masthead {
 	                        </div>
 	                    </div>
 	                    <div class="col-sm-2">
-							<a href="#" class="btn btn-izone float-right">글쓰기</a>
+							<a href="<c:url value='/board/write' />" class="btn btn-izone float-right">글쓰기</a>
 						</div>
 						<div class="col-sm-2"></div>
 					</div>
 					
 		
 	</div>
+	
+	
+	
+	<script type="text/javascript">
+	
+		// 글쓰기 성공시 띄울 알림창
+		const result = "${msg}"
+		
+		if(result === "regSuccess"){
+			alert("게시물 등록이 완료되었습니다.")
+		} else if(result === "delSuccess"){
+			alert("게시물이 삭제되었습니다.")
+		}
+	
+	</script>
+	
 <jsp:include page="../include/footer.jsp" />

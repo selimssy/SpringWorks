@@ -109,7 +109,7 @@
 		    </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="<c:url value='#'/>">BOARD</a>
+            <a class="nav-link js-scroll-trigger" href="<c:url value='/board/list'/>">BOARD</a>
           </li>
           <c:if test="${login == null}" >
           <li class="nav-item">
