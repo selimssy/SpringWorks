@@ -41,7 +41,7 @@
 		SELECT *
 		FROM mvc_board
 		ORDER BY board_no DESC
-		LIMIT #{page}, #{countPerPage}
+		LIMIT #{page}, #{countPerPage} 
 	</select>
 	
 	
