@@ -106,4 +106,16 @@ public class BoardMapperTest {
 		}
 		
 	}
+	
+	
+	
+	
+	
+	
+	// 페이징 이후 전체조회 테스트
+	@Test
+	public void pagingTest() {
+		mapper.getArticleListPaging(0).forEach(vo -> System.out.println(vo));
+	}
+	
 }

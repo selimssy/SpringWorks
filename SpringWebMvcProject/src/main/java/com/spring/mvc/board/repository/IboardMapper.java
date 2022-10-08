@@ -11,8 +11,10 @@ public interface IboardMapper {
 	// 게시글 등록 기능
 	void insert(BoardVO article);
 	
-	// 게시글 목록 조회기능
+	// 게시글 목록 조회기능(페이징처리 이전)
 	List<BoardVO> getArticleList();
+	// 페이징처리 이후 게시글 목록조회 기능
+	List<BoardVO> getArticleListPaging(int page);
 	
 	// 게시글 상세 조회기능
 	BoardVO getArticle(Integer boardNo);

@@ -38,7 +38,7 @@ header.masthead {
 
 
 		 <!-- POST 방식으로 삭제하는법 잘 알아두자!!★ -->	
-         <form role="form" action="<c:url value='/board/delete'/>" method="post">  
+         <form id="formObj"  role="form" action="<c:url value='/board/delete'/>" method="post">  
           
 	          <input type="hidden" name="boardNo" value="${article.boardNo}">
 	          
@@ -47,7 +47,7 @@ header.masthead {
 	          <!-- 이런식으로 location.href 경로를 통해 가는거는 get방식이다! -->
 	          <!-- 그래서 목록, 수정은 get방식이 되고 boardNo hidden이랑 삭제는 post 방식이 된다 -->
 	          
-	          <input type="button" value="수정" class="btn btn-warning" onclick="" style="color:white;">&nbsp;&nbsp;
+	          <input id="modBtn" type="button" value="수정" class="btn btn-warning"  style="color:white;">&nbsp;&nbsp;
 	          
 	          <input type="submit" value="삭제" class="btn btn-danger" onclick="return confirm('정말로 삭제하시겠습니까?')">&nbsp;&nbsp;
         	  <!-- return confirm은 예 아니오 버튼이 뜨는데 예를 누르면 true가 리턴되면서 submit이 전송된다!! (아니요 누르면 false리턴되고 submit 전송되지 않음)  -->	
@@ -61,4 +61,40 @@ header.masthead {
   </div>
 </div>
 </div>
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+<!-- 근데 지금 header에 들어가있어서 안해도 되긴 하다 -->
+
+<script type="text/javascript">
+
+	
+	//수정 완료 알림창 처리(이건 제이쿼리가 아니라 바닐라 자바스크립트라서 제이쿼리 밖으로 빼야!)
+	const msg = "${msg}"
+	if(msg === "modSuccess"){
+		alert("게시물 수정 완료!")
+	}
+	
+	
+	// 제이쿼리의 시작
+	$(function(){
+		
+		// 수정버튼 클릭이벤트 처리
+		// 왜 let이 안먹지...
+		//var modifyBtn = document.getElementById("modBtn");  //vanila 자바스크립트(원형)
+		const forElement = $("#formObj");
+		var modifyBtn = $("#modBtn"); // jQuery
+		
+		modifyBtn.click(function(){
+			console.log("수정버튼이 클릭됨!");
+			forElement.attr("action", "/board/modify");
+			forElement.attr("method", "get");
+			forElement.submit();
+		})
+		
+	});
+
+</script>
+
 <jsp:include page="../include/footer.jsp" />

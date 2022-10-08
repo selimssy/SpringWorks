@@ -22,10 +22,17 @@ public class BoardService implements IBoardService {
 		mapper.insert(article);
 	}
 
+	
 	@Override
 	public List<BoardVO> getArticleList() {
 		return mapper.getArticleList();
 	}
+	@Override
+	public List<BoardVO> getArticleListPaging(int page) {
+		page = (page - 1) *10;
+		return mapper.getArticleListPaging(page);
+	}
+	
 
 	@Override
 	public BoardVO getArticle(Integer boardNo) {

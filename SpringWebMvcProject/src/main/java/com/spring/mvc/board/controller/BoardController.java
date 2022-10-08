@@ -23,8 +23,8 @@ public class BoardController {
 	
 	
 	
-	// 게시글 목록 불러오기 요청
-	@GetMapping("/list")
+	// 게시글 목록 불러오기 요청(페이징처리 이전)
+	/*@GetMapping("/list")
 	public String list(Model model) {
 		
 		List<BoardVO> list = service.getArticleList();
@@ -33,8 +33,18 @@ public class BoardController {
 		model.addAttribute("articles", list);
 		
 		return "board/list";
-	}
+	}  */
 	
+	// 페이징처리 이후 게시글 목록 불러오기 요청
+	@GetMapping("/list")
+	public String list(Model model) {
+		
+		List<BoardVO> list = service.getArticleListPaging(0);
+		System.out.println("URL: /board/list GET -> result" + list.size());
+		model.addAttribute("articles", list);
+		
+		return "board/list";
+	}  
 	
 	
 	// 글쓰기 화면 띄우기 요청
@@ -81,4 +91,26 @@ public class BoardController {
 		
 		return "redirect:/board/list";
 	}
+	
+	
+	
+	
+	// 게시물 수정페이지 요청
+	@GetMapping("/modify")
+	public String modify(Integer boardNo, Model model) {
+		System.out.println(boardNo + "번 게시물 수정 요청 : GET");
+		model.addAttribute("article", service.getArticle(boardNo));
+		return "board/modify";
+	}
+	
+	// 게시물 수정 요청
+	@PostMapping("/modify")
+	public String modify(BoardVO article, RedirectAttributes ra) { 
+		// 원래는 boardNo를 hidden으로 줘야되는데 spring에선 같은url 이면 get에서 썼던걸 그대로 넘겨준다! 근데 확실하게 하려면 hidden 넣어주자
+		System.out.println("번 게시물 수정 요청 : POST");
+		service.update(article);
+		ra.addFlashAttribute("msg", "modSuccess");
+		return "redirect:/board/content/" + article.getBoardNo();
+	}
+
 }

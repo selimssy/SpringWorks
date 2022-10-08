@@ -26,10 +26,22 @@
 	
 	
 	
+	
+	
+	<!-- 페이징처리 이전 -->
 	<select id="getArticleList" resultMap="BoardMap">
 		SELECT *
 		FROM mvc_board
 		ORDER BY board_no DESC
+	</select>
+	
+	
+	<!-- 페이징처리 이후!! -->
+	<select id="getArticleListPaging" resultMap="BoardMap">
+		SELECT *
+		FROM mvc_board
+		ORDER BY board_no DESC
+		LIMIT #{page}, #{countPerPage}
 	</select>
 	
 	
