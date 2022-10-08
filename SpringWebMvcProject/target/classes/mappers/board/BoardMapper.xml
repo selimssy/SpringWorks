@@ -41,7 +41,8 @@
 		SELECT *
 		FROM mvc_board
 		ORDER BY board_no DESC
-		LIMIT #{page}, #{countPerPage} 
+		LIMIT #{pageStart}, #{countPerPage} 
+		<!-- 원본(?)은 #{getPageStart()} 이다!! -->
 	</select>
 	
 	

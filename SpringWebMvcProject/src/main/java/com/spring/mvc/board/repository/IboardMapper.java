@@ -3,6 +3,7 @@ package com.spring.mvc.board.repository;
 import java.util.List;
 
 import com.spring.mvc.board.model.BoardVO;
+import com.spring.mvc.commons.PageVO;
 
 
 // 게시판 관련 CRUD 추상메서드 선언
@@ -14,7 +15,7 @@ public interface IboardMapper {
 	// 게시글 목록 조회기능(페이징처리 이전)
 	List<BoardVO> getArticleList();
 	// 페이징처리 이후 게시글 목록조회 기능
-	List<BoardVO> getArticleListPaging(int page);
+	List<BoardVO> getArticleListPaging(PageVO paging);
 	
 	// 게시글 상세 조회기능
 	BoardVO getArticle(Integer boardNo);

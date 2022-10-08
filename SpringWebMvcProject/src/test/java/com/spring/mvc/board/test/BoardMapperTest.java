@@ -10,6 +10,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.spring.mvc.board.model.BoardVO;
 import com.spring.mvc.board.repository.IboardMapper;
+import com.spring.mvc.commons.PageVO;
 
 
 
@@ -115,7 +116,10 @@ public class BoardMapperTest {
 	// 페이징 이후 전체조회 테스트
 	@Test
 	public void pagingTest() {
-		mapper.getArticleListPaging(0).forEach(vo -> System.out.println(vo));
+		PageVO paging = new PageVO();
+		paging.setPage(0);
+		paging.setCountPerPage(20);
+		mapper.getArticleListPaging(paging).forEach(vo -> System.out.println(vo));
 	}
 	
 }
