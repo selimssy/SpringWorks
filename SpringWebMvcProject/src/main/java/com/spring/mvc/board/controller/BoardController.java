@@ -61,6 +61,8 @@ public class BoardController {
 	@GetMapping("/list")
 	public String list(SearchVO search, Model model) { // PageVO paging 일 때 PageVO 객체가 생성되는거다...
 		
+		String condition = search.getCondition();
+		
 		List<BoardVO> list = service.getArticleListByTitle(search);
 		System.out.println("URL: /board/list GET -> result" + list.size());
 		System.out.println("페이지 번호 : " + search.getPage() + "페이지, " + search.getCountPerPage() + "개씩 출력");

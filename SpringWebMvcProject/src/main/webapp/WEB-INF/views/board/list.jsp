@@ -85,7 +85,7 @@ header.masthead {
 						
 						<!-- 페이지 버튼 -->
 						<c:forEach var="pageNum" begin="${pc.beginPage}" end="${pc.endPage}">
-							<li class="page-item">                                                                                            <!-- 조건부로 클래스 추가하는 코드! 홀따옴표 주의하자ㅠ -->
+							<li class="page-item">                      <!-- 이것도 동적sql 처리 후 수정해야!! -->                                                                      <!-- 조건부로 클래스 추가하는 코드! 홀따옴표 주의하자ㅠ -->
 							   <a href="<c:url value='/board/list?page=${pageNum}&countPerPage=${pc.paging.countPerPage}&keyword=${search.keyword}' />" class="page-link ${(pc.paging.page == pageNum) ? 'page-active' : ''}" style="margin-top: 0; height: 40px; color: pink; border: 1px solid pink;">${pageNum}</a>
 							</li>
 						</c:forEach>
