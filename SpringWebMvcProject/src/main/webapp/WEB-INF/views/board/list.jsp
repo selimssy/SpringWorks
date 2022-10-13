@@ -86,7 +86,7 @@ header.masthead {
 						<!-- 페이지 버튼 -->
 						<c:forEach var="pageNum" begin="${pc.beginPage}" end="${pc.endPage}">
 							<li class="page-item">                                                                                            <!-- 조건부로 클래스 추가하는 코드! 홀따옴표 주의하자ㅠ -->
-							   <a href="<c:url value='/board/list?page=${pageNum}&countPerPage=${pc.paging.countPerPage}' />" class="page-link ${(pc.paging.page == pageNum) ? 'page-active' : ''}" style="margin-top: 0; height: 40px; color: pink; border: 1px solid pink;">${pageNum}</a>
+							   <a href="<c:url value='/board/list?page=${pageNum}&countPerPage=${pc.paging.countPerPage}&keyword=${search.keyword}' />" class="page-link ${(pc.paging.page == pageNum) ? 'page-active' : ''}" style="margin-top: 0; height: 40px; color: pink; border: 1px solid pink;">${pageNum}</a>
 							</li>
 						</c:forEach>
 						  
@@ -152,6 +152,29 @@ header.masthead {
 			$("#count-per-page .btn-izone").click(function(){ 
 				let count = $(this).val();
 				location.href="/board/list?countPerPage=" + count;  // 근데 이렇게하니까 페이지 바꾸면 다시 10개씩 출력되는데....
+			})
+			
+			
+			
+			// 검색 버튼 이벤트 처리
+			$("#searchBtn").click(function(){
+				console.log("검색 버튼이 클릭됨!")
+				const keyword = $("#keywordInput").val();
+				const condition = $("#condition option:selected").val();  // t는 이렇게(라디오박스는 checked)... 근데 아래처럼 해도 되는 것 같은데.....
+				//const condition = $("#condition").val();
+				console.log(condition)
+				
+				location.href="/board/list?keyword=" + keyword + "&condition=" + condition;
+			})
+			
+			
+			// 엔터키 입력 이벤트
+			$("#keywordInput").keydown(function(key){ // 검색어창(id="keywordInput")에서 keydown이 일어났을 때
+				
+				if(key.keyCode == 13){  // 누른 key가 13(=엔터키)라면
+					$("#searchBtn").click();
+				}
+				
 			})
 			
 		})

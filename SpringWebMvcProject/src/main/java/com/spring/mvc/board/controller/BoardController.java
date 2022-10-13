@@ -71,6 +71,7 @@ public class BoardController {
 		
 		model.addAttribute("articles", list);
 		model.addAttribute("pc", pc);
+		model.addAttribute("search", search);
 		
 		return "board/list";
 	}  
