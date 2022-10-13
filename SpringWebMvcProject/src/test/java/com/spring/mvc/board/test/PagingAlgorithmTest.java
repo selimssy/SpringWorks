@@ -8,6 +8,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.spring.mvc.board.repository.IboardMapper;
 import com.spring.mvc.commons.PageVO;
+import com.spring.mvc.commons.SearchVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)  // 이거 쓰려면 Spring Test 모듈 maven 주입해야
 @ContextConfiguration(locations= {"file:src/main/webapp/WEB-INF/spring/mvc-config.xml"})
@@ -122,6 +123,19 @@ public class PagingAlgorithmTest {
 	
 	
 	
+	
+	@Test
+	public void searchTest() {
+		
+		SearchVO search = new SearchVO();
+		search.setCountPerPage(20);
+		search.setKeyword("3");
+		
+		System.out.println("----------------------------------------");
+		mapper.getArticleListByTitle(search).forEach(vo -> System.out.println(vo));
+		System.out.println("----------------------------------------");
+		
+	}
 	
 	
 	

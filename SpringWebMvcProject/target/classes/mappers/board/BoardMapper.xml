@@ -47,6 +47,17 @@
 	
 	
 	
+	<!-- 검색처리 이후!! -->
+	<select id="getArticleListByTitle" resultMap="BoardMap">
+		SELECT *
+		FROM mvc_board
+		WHERE title LIKE CONCAT('%',#{keyword},'%')
+		ORDER BY board_no DESC
+		LIMIT #{pageStart}, #{countPerPage} 
+	</select>
+	
+	
+	
 	<select id="getArticle" resultMap="BoardMap">
 		SELECT *
 		FROM mvc_board
@@ -58,6 +69,14 @@
 	<select id="countArticles" resultType="int">
 		SELECT COUNT(*)
 		FROM mvc_board
+	</select>
+	
+	
+	
+	<select id="countArticlesByTitle" resultType="int">
+		SELECT COUNT(*)
+		FROM mvc_board
+		WHERE title LIKE CONCAT('%',#{keyword},'%')
 	</select>
 	
 	

@@ -59,7 +59,7 @@ header.masthead {
 								<td>${B.boardNo}</td>
 								<td>${B.writer}</td>
 						
-								<td><a style="margin-top: 0; height: 40px; color: orange;" href="<c:url value='/board/content/${B.boardNo}' />">
+								<td><a style="margin-top: 0; height: 40px; color: orange;" href="<c:url value='/board/content/${B.boardNo}?page=${pc.paging.page}&countPerPage=${pc.paging.countPerPage}' />">
 										${B.title}
 									</a>
 								</td>

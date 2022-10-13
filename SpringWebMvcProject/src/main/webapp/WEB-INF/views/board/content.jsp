@@ -41,8 +41,10 @@ header.masthead {
          <form id="formObj"  role="form" action="<c:url value='/board/delete'/>" method="post">  
           
 	          <input type="hidden" name="boardNo" value="${article.boardNo}">
+	          <input type="hidden" name="page" value="${p.page}">
+			  <input type="hidden" name="countPerPage" value="${p.countPerPage}">
 	          
-	          <input type="button" value="목록" class="btn" onclick="location.href='/board/list'"
+	          <input type="button" value="목록" class="btn"  id="list-btn"
 			style="background-color: #ff52a0; margin-top: 0; height: 40px; color: white; border: 0px solid #388E3C; opacity: 0.8">&nbsp;&nbsp;
 	          <!-- 이런식으로 location.href 경로를 통해 가는거는 get방식이다! -->
 	          <!-- 그래서 목록, 수정은 get방식이 되고 boardNo hidden이랑 삭제는 post 방식이 된다 -->
@@ -79,6 +81,13 @@ header.masthead {
 	
 	// 제이쿼리의 시작
 	$(function(){
+		
+		// 목록버튼 클릭이벤트 처리
+		$("#list-btn").click(function(){
+			console.log("목록버튼이 클릭됨!");
+			location.href='/board/list?page=${p.page}&countPerPage=${p.countPerPage}';
+		})
+		
 		
 		// 수정버튼 클릭이벤트 처리
 		// 왜 let이 안먹지...
