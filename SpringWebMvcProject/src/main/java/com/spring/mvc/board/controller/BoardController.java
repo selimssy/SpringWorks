@@ -15,6 +15,7 @@ import com.spring.mvc.board.model.BoardVO;
 import com.spring.mvc.board.service.IBoardService;
 import com.spring.mvc.commons.PageCreator;
 import com.spring.mvc.commons.PageVO;
+import com.spring.mvc.commons.SearchVO;
 
 @Controller
 @RequestMapping("/board")
@@ -38,7 +39,7 @@ public class BoardController {
 	}  */
 	
 	// 페이징처리 이후 게시글 목록 불러오기 요청
-	@GetMapping("/list")
+	/*@GetMapping("/list")
 	public String list(PageVO paging, Model model) { // PageVO paging 일 때 PageVO 객체가 생성되는거다...
 		
 		List<BoardVO> list = service.getArticleListPaging(paging);
@@ -53,7 +54,28 @@ public class BoardController {
 		model.addAttribute("pc", pc);
 		
 		return "board/list";
+	}  */
+	
+	
+	// 검색처리 이후 게시글 목록 불러오기 요청
+	@GetMapping("/list")
+	public String list(SearchVO search, Model model) { // PageVO paging 일 때 PageVO 객체가 생성되는거다...
+		
+		List<BoardVO> list = service.getArticleListByTitle(search);
+		System.out.println("URL: /board/list GET -> result" + list.size());
+		System.out.println("페이지 번호 : " + search.getPage() + "페이지, " + search.getCountPerPage() + "개씩 출력");
+		
+		PageCreator pc = new PageCreator();
+		pc.setPaging(search);  // 부모자식관계니까 그냥 이렇게해도 ok!
+		pc.setArticleTotalCount(service.countArticlesByTitle(search));
+		
+		model.addAttribute("articles", list);
+		model.addAttribute("pc", pc);
+		
+		return "board/list";
 	}  
+	
+	
 	
 	
 	// 글쓰기 화면 띄우기 요청

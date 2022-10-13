@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.spring.mvc.board.model.BoardVO;
 import com.spring.mvc.board.repository.IboardMapper;
 import com.spring.mvc.commons.PageVO;
+import com.spring.mvc.commons.SearchVO;
 
 
 @Service
@@ -36,8 +37,20 @@ public class BoardService implements IBoardService {
 	
 	
 	@Override
+	public List<BoardVO> getArticleListByTitle(SearchVO search) {
+	             return mapper.getArticleListByTitle(search);
+	}
+	
+	
+	@Override
 	public Integer countArticles() {
 	    return mapper.countArticles();
+	}
+	
+	
+	@Override
+	public Integer countArticlesByTitle(SearchVO search) {
+		return mapper.countArticlesByTitle(search);
 	}
 	
 
