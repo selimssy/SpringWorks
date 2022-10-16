@@ -1,7 +1,5 @@
 package com.spring.mvc.board.test;
 
-import java.util.List;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +8,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.spring.mvc.board.model.BoardVO;
 import com.spring.mvc.board.repository.IboardMapper;
-import com.spring.mvc.commons.PageVO;
 
 
 

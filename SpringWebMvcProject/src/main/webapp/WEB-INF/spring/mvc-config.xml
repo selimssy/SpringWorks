@@ -33,5 +33,6 @@
 	
 	<!-- 매퍼의 인터페이스를 스캔하는 설정 -->
     <mybatis-spring:scan base-package="com.spring.mvc.board.repository"/>  <!-- 이건 프로젝트별로 바꿔줘야된다!! -->
+    <mybatis-spring:scan base-package="com.spring.mvc.user.repository"/>
 			
 </beans>
