@@ -51,25 +51,38 @@ header.masthead {
 								<th>조회수</th>
 							</tr>
 						</thead>
+						
+						<c:if test="${articles.size() <= 0}">
+							<tr>
+								<td colspan="5" align="center">
+									<strong>검색 결과가 없습니다.</strong>
+								</td>
+							</tr>
+						</c:if>
 
 						<!-- 게시물이 들어갈 공간 -->
-
-						<c:forEach var="B" items="${articles}">
-							<tr style="color: #ff52a0;">
-								<td>${B.boardNo}</td>
-								<td>${B.writer}</td>
-						
-								<td><a style="margin-top: 0; height: 40px; color: orange;" href="<c:url value='/board/content/${B.boardNo}?page=${pc.paging.page}&countPerPage=${pc.paging.countPerPage}' />">
-										${B.title}
-									</a>
-								</td>
-						
-								<td>
-									<fmt:formatDate value="${B.regDate}" pattern="yyyy년 MM월 dd일 a hh:mm" />							
-								</td>
-								<td>${B.viewCnt}</td>
-							</tr>
-						</c:forEach>
+						<c:if test="${articles.size() > 0}">
+							<c:forEach var="B" items="${articles}">
+								<tr style="color: #ff52a0;">
+									<td>${B.boardNo}</td>
+									<td>${B.writer}</td>
+																																				  <!-- 처음 게시판 들어가면 page 파라미터가 없으니까 -->
+									<td><a style="margin-top: 0; height: 40px; color: orange;" href="<c:url value='/board/content/${B.boardNo}${param.page == null ? pc.makeURI(1) : pc.makeURI(param.page)}' />">
+											${B.title}
+										</a>
+										&nbsp; 
+										<c:if test="${B.newMark}">    
+											<span class="label label-danger" >new</span>
+										</c:if>       <!-- 부트스트랩 클래스 -->
+									</td>
+							
+									<td>
+										<fmt:formatDate value="${B.regDate}" pattern="yyyy년 MM월 dd일 a hh:mm" />							
+									</td>
+									<td>${B.viewCnt}</td>
+								</tr>
+							</c:forEach>
+						</c:if>
 						
 					</table>
 					
@@ -78,22 +91,22 @@ header.masthead {
 						<!-- 이전 버튼 -->
 						<c:if test="${pc.prev}">
 	                       	<li class="page-item">
-								<a class="page-link" href="<c:url value='/board/list?page=${pc.beginPage - 1}&countPerPage=${pc.paging.countPerPage}'/>" 
+								<a class="page-link" href="<c:url value='/board/list${pc.makeURI(pc.beginPage - 1)}'/>" 
 								style="background-color: #ff52a0; margin-top: 0; height: 40px; color: white; border: 0px solid #f78f24; opacity: 0.8">이전</a>
 							</li>
 						</c:if>
 						
 						<!-- 페이지 버튼 -->
 						<c:forEach var="pageNum" begin="${pc.beginPage}" end="${pc.endPage}">
-							<li class="page-item">                      <!-- 이것도 동적sql 처리 후 수정해야!! -->                                                                      <!-- 조건부로 클래스 추가하는 코드! 홀따옴표 주의하자ㅠ -->
-							   <a href="<c:url value='/board/list?page=${pageNum}&countPerPage=${pc.paging.countPerPage}&keyword=${search.keyword}' />" class="page-link ${(pc.paging.page == pageNum) ? 'page-active' : ''}" style="margin-top: 0; height: 40px; color: pink; border: 1px solid pink;">${pageNum}</a>
+							<li class="page-item">                                                                                            <!-- 조건부로 클래스 추가하는 코드! 홀따옴표 주의하자ㅠ -->
+							   <a href="<c:url value='/board/list${pc.makeURI(pageNum)}' />" class="page-link ${(pc.paging.page == pageNum) ? 'page-active' : ''}" style="margin-top: 0; height: 40px; color: pink; border: 1px solid pink;">${pageNum}</a>
 							</li>
 						</c:forEach>
 						  
 						   <!-- 다음 버튼 -->
 						   <c:if test="${pc.next}">
 						    <li class="page-item">
-						      <a class="page-link" href="<c:url value='/board/list?page=${pc.endPage + 1}&countPerPage=${pc.paging.countPerPage}'/>" 
+						      <a class="page-link" href="<c:url value='/board/list${pc.makeURI(pc.endPage + 1)}'/>" 
 						      style="background-color: #ff52a0; margin-top: 0; height: 40px; color: white; border: 0px solid #f78f24; opacity: 0.8">다음</a>
 						    </li>
 						   </c:if>
@@ -107,15 +120,15 @@ header.masthead {
 						<div class="col-sm-2"></div>
 	                    <div class="form-group col-sm-2">
 	                        <select id="condition" class="form-control" name="condition">                            	
-	                            <option value="title">제목</option>
-	                            <option value="content">내용</option>
-	                            <option value="writer">작성자</option>
-	                            <option value="titleContent">제목+내용</option>
+	                            <option value="title" ${param.condition == 'title' ? 'selected' : ''}>제목</option>
+	                            <option value="content" ${param.condition == 'content' ? 'selected' : ''}>내용</option>
+	                            <option value="writer" ${param.condition == 'writer' ? 'selected' : ''}>작성자</option>
+	                            <option value="titleContent" ${param.condition == 'titleContent' ? 'selected' : ''}>제목+내용</option>
 	                        </select>
 	                    </div>
 	                    <div class="form-group col-sm-4">
 	                        <div class="input-group">
-	                            <input type="text" class="form-control" name="keyword" id="keywordInput" placeholder="검색어">
+	                            <input type="text" class="form-control" name="keyword" id="keywordInput" value="${param.keyword}" placeholder="검색어">
 	                            <span class="input-group-btn">
 	                                <input type="button" value="검색" class="btn btn-izone btn-flat" id="searchBtn">                                       
 	                            </span>
@@ -151,7 +164,10 @@ header.masthead {
 			// 출력 개수가 변동하는 이벤트 처리
 			$("#count-per-page .btn-izone").click(function(){ 
 				let count = $(this).val();
-				location.href="/board/list?countPerPage=" + count;  // 근데 이렇게하니까 페이지 바꾸면 다시 10개씩 출력되는데....
+				const keyword = "${param.keyword}";
+				const condition = "${param.condition}";
+				location.href="/board/list?page=1&countPerPage=" + count 
+						+ "&keyword=" + keyword + "&condition=" + condition;  // 페이지 처리 링크에서도 countPerPage, keyword, condition 다 들고가니까 이제 문제 없다!
 			})
 			
 			

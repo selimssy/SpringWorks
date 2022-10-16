@@ -83,7 +83,7 @@ public class PagingAlgorithmTest {
 		
 		// 총 게시물 수 구하는 테스트
 		System.out.println("--------------------------------");
-		System.out.println("총 게시물 수 : " + mapper.countArticles() + "개");
+		//System.out.println("총 게시물 수 : " + mapper.countArticles() + "개");
 		System.out.println("--------------------------------");
 		
 		
@@ -107,15 +107,16 @@ public class PagingAlgorithmTest {
 		
 		
 		// 다음 버튼 활성 여부
-		boolean isNext = (mapper.countArticles() <= endPage * paging.getCountPerPage()) ? false : true;
-		System.out.println("다음 버튼 활성 여부 : " + isNext);
+		//boolean isNext = (mapper.countArticles() <= endPage * paging.getCountPerPage()) ? false : true;
+		//System.out.println("다음 버튼 활성 여부 : " + isNext);
 		
 		
+		/*
 		// 끝 페이지 값 보정
 		if(!isNext) {
 			endPage = (int)Math.ceil(mapper.countArticles() / (double)paging.getCountPerPage());
 		}
-		System.out.println("보정 후 끝페이지 번호 : " + endPage);
+		System.out.println("보정 후 끝페이지 번호 : " + endPage);  */
 		
 		System.out.println("--------------------------------");
 	}
@@ -123,7 +124,7 @@ public class PagingAlgorithmTest {
 	
 	
 	
-	
+	/*
 	@Test
 	public void searchTest() {
 		
@@ -135,7 +136,7 @@ public class PagingAlgorithmTest {
 		mapper.getArticleListByTitle(search).forEach(vo -> System.out.println(vo));
 		System.out.println("----------------------------------------");
 		
-	}
+	}*/
 	
 	
 	

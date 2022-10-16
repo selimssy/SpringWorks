@@ -43,7 +43,7 @@ public class BoardMapperTest {
 	
 	
 	
-	
+	/*
 	// 게시글 목록 조회 테스트
 	@Test
 	public void getListTest() {
@@ -58,7 +58,7 @@ public class BoardMapperTest {
 		// 람다식 이욯해서 이렇게 위의 3줄을 1줄로 코딩할 수 있다 
 		//mapper.getArticleList().forEach(vo -> System.out.println(vo));
 		
-	}
+	}*/
 	
 	
 	
@@ -112,7 +112,7 @@ public class BoardMapperTest {
 	
 	
 	
-	
+	/*
 	// 페이징 이후 전체조회 테스트
 	@Test
 	public void pagingTest() {
@@ -120,6 +120,6 @@ public class BoardMapperTest {
 		paging.setPage(0);
 		paging.setCountPerPage(20);
 		mapper.getArticleListPaging(paging).forEach(vo -> System.out.println(vo));
-	}
+	}*/
 	
 }

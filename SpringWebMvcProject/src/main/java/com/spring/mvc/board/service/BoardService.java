@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.spring.mvc.board.model.BoardVO;
 import com.spring.mvc.board.repository.IboardMapper;
-import com.spring.mvc.commons.PageVO;
 import com.spring.mvc.commons.SearchVO;
 
 
@@ -23,39 +22,11 @@ public class BoardService implements IBoardService {
 	public void insert(BoardVO article) {
 		mapper.insert(article);
 	}
-
-	
-	@Override
-	public List<BoardVO> getArticleList() {
-		return mapper.getArticleList();
-	} 
-	@Override
-	public List<BoardVO> getArticleListPaging(PageVO paging) {
-		//page = (page - 1) *10; // 객체에서 수행!
-		return mapper.getArticleListPaging(paging);
-	}
-	
-	
-	@Override
-	public List<BoardVO> getArticleListByTitle(SearchVO search) {
-	             return mapper.getArticleListByTitle(search);
-	}
-	
-	
-	@Override
-	public Integer countArticles() {
-	    return mapper.countArticles();
-	}
-	
-	
-	@Override
-	public Integer countArticlesByTitle(SearchVO search) {
-		return mapper.countArticlesByTitle(search);
-	}
 	
 
 	@Override
 	public BoardVO getArticle(Integer boardNo) {
+		mapper.updateViewCnt(boardNo); // 여기서 조회수 증가
 		return mapper.getArticle(boardNo);
 	}
 
@@ -67,6 +38,32 @@ public class BoardService implements IBoardService {
 	@Override
 	public void delete(Integer boardNo) {
 		mapper.delete(boardNo);
+	}
+
+
+	@Override
+	public List<BoardVO> getArticleList(SearchVO search) {
+		List<BoardVO> list = mapper.getArticleList(search);
+		
+		// 1일 이내 신규 글 new마크 처리 로직
+		for(BoardVO article : list) {
+			// 현재시간 읽어오기
+			long now = System.currentTimeMillis();
+			// 각 게시물들의 작성 시간을 밀리초로 읽어오기(by getTime() 메서드)
+			long regTime = article.getRegDate().getTime();
+			
+			if(now - regTime < 60 * 60 * 24 * 1000) {
+				article.setNewMark(true);
+			}
+		}
+				
+		return list;
+	}
+
+
+	@Override
+	public Integer countArticles(SearchVO search) {
+		return mapper.countArticles(search);
 	}
 
 }

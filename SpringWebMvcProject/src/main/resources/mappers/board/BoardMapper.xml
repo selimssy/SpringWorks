@@ -16,68 +16,32 @@
 		
 	</resultMap>
 
-
+	
+	
+	<!-- 중복되는 동적 SQL문에 대한 처리 -->
+	<sql id="search">  <!-- id는 내맘대로 -->
+		<!-- 동적 SQL구문 -->
+		<if test="condition == 'title'">  <!-- MyBatis에서 제공하는 태그! / 여기서는 #{condition}에서 #{}없이 condition만 쓴다!! -->
+		WHERE title LIKE CONCAT('%',#{keyword},'%')
+		</if>
+		<if test="condition == 'writer'">
+		WHERE writer LIKE CONCAT('%',#{keyword},'%')
+		</if>
+		<if test="condition == 'content'">
+		WHERE content LIKE CONCAT('%',#{keyword},'%')
+		</if>
+		<if test="condition == 'titleContent'">
+		WHERE title LIKE CONCAT('%',#{keyword},'%')
+		OR content LIKE CONCAT('%',#{keyword},'%')
+		</if>
+	</sql>
+	
 
 
 	<insert id="insert">
 		INSERT INTO mvc_board (title, content, writer)
 		VALUES (#{title}, #{content}, #{writer})
 	</insert>
-	
-	
-	
-	
-	
-	<!-- 페이징처리 이전 -->
-	<select id="getArticleList" resultMap="BoardMap">
-		SELECT *
-		FROM mvc_board
-		ORDER BY board_no DESC
-	</select>
-	
-	
-	<!-- 페이징처리 이후!! -->
-	<select id="getArticleListPaging" resultMap="BoardMap">
-		SELECT *
-		FROM mvc_board
-		ORDER BY board_no DESC
-		LIMIT #{pageStart}, #{countPerPage} 
-		<!-- 원본(?)은 #{getPageStart()} 이다!! -->
-	</select>
-	
-	
-	
-	<!-- 검색처리 이후!! -->
-	<select id="getArticleListByTitle" resultMap="BoardMap">
-		SELECT *
-		FROM mvc_board
-		WHERE title LIKE CONCAT('%',#{keyword},'%')
-		ORDER BY board_no DESC
-		LIMIT #{pageStart}, #{countPerPage} 
-	</select>
-	
-	
-	
-	<select id="getArticle" resultMap="BoardMap">
-		SELECT *
-		FROM mvc_board
-		WHERE board_no = #{boardNo}
-	</select>
-	
-	
-	<!-- 리턴타입이 VO일땐 resultMap, int String 등일땐 resultType(int, s(소문자)tring 이렇게)  -->
-	<select id="countArticles" resultType="int">
-		SELECT COUNT(*)
-		FROM mvc_board
-	</select>
-	
-	
-	
-	<select id="countArticlesByTitle" resultType="int">
-		SELECT COUNT(*)
-		FROM mvc_board
-		WHERE title LIKE CONCAT('%',#{keyword},'%')
-	</select>
 	
 	
 	
@@ -93,5 +57,78 @@
 		DELETE FROM mvc_board
 		WHERE board_no = #{boardNo}
 	</delete>
+	
+	
+	
+	<select id="getArticle" resultMap="BoardMap">
+		SELECT *
+		FROM mvc_board
+		WHERE board_no = #{boardNo}
+	</select>
+	
+	
+	
+	<update id="updateViewCnt">
+		UPDATE mvc_board
+		SET view_cnt = view_cnt + 1
+		WHERE board_no = #{boardNO}
+	</update>
+	
+
+
+	<select id="getArticleList" resultMap="BoardMap">
+		SELECT *
+		FROM mvc_board
+		<!-- WHERE절이 없거나 조건에 따라 바뀌어야!(검색 안하면(4개의 if중 아무것도 해당x) 자동으로 WHERE절 없이 들어온다) -->
+		<include refid="search"/>
+		ORDER BY board_no DESC
+		LIMIT #{pageStart}, #{countPerPage} 
+	</select>
+	
+	
+	
+	<!-- 리턴타입이 VO일땐 resultMap, int String 등일땐 resultType(int, s(소문자)tring 이렇게)  -->
+	<select id="countArticles" resultType="int">
+		SELECT COUNT(*)
+		FROM mvc_board
+		<include refid="search"/>
+	</select>
+	
+	
+	
+	
+	
+	<!--  
+	<select id="getArticleListPaging" resultMap="BoardMap">
+		SELECT *
+		FROM mvc_board
+		ORDER BY board_no DESC
+		LIMIT #{pageStart}, #{countPerPage} 
+		
+	</select>
+	
+	
+	
+	
+	<select id="getArticleListByTitle" resultMap="BoardMap">
+		SELECT *
+		FROM mvc_board
+		WHERE title LIKE CONCAT('%',#{keyword},'%')
+		ORDER BY board_no DESC
+		LIMIT #{pageStart}, #{countPerPage} 
+	</select>
+	
+	
+	
+	
+	<select id="countArticlesByTitle" resultType="int">
+		SELECT COUNT(*)
+		FROM mvc_board
+		WHERE title LIKE CONCAT('%',#{keyword},'%')
+	</select>
+	-->
+	
+	
+	
 
 </mapper>

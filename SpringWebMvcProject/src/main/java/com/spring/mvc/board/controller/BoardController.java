@@ -61,19 +61,23 @@ public class BoardController {
 	@GetMapping("/list")
 	public String list(SearchVO search, Model model) { // PageVO paging 일 때 PageVO 객체가 생성되는거다...
 		
-		String condition = search.getCondition();
-		
-		List<BoardVO> list = service.getArticleListByTitle(search);
-		System.out.println("URL: /board/list GET -> result" + list.size());
-		System.out.println("페이지 번호 : " + search.getPage() + "페이지, " + search.getCountPerPage() + "개씩 출력");
+		//String condition = search.getCondition();
 		
 		PageCreator pc = new PageCreator();
 		pc.setPaging(search);  // 부모자식관계니까 그냥 이렇게해도 ok!
-		pc.setArticleTotalCount(service.countArticlesByTitle(search));
+		
+		List<BoardVO> list = service.getArticleList(search);
+		pc.setArticleTotalCount(service.countArticles(search));
+		
+		/*List<BoardVO> list = service.getArticleListByTitle(search);
+		System.out.println("URL: /board/list GET -> result" + list.size());
+		System.out.println("페이지 번호 : " + search.getPage() + "페이지, " + search.getCountPerPage() + "개씩 출력");
+				
+		pc.setArticleTotalCount(service.countArticlesByTitle(search));  */
 		
 		model.addAttribute("articles", list);
 		model.addAttribute("pc", pc);
-		model.addAttribute("search", search);
+		
 		
 		return "board/list";
 	}  
@@ -102,13 +106,13 @@ public class BoardController {
 	
 	// 게시물 상세보기 요청
 	@GetMapping("/content/{boardNo}")
-	public String content(@PathVariable Integer boardNo, PageVO paging, Model model) {
+	public String content(@PathVariable Integer boardNo, SearchVO search, Model model) {
 		// @PathVariable : 경로에서 파라미터variable을 읽어서 Integer boardNo 에 집어넣겠다 (이게 요즘 추세다!)
 		// 원형은 @PathVariable("boardNo") Integer boardNo  인데 이름이 같으면 생략 가능하다
 		
 		System.out.println(boardNo + "번 게시물 조회 요청");
 		model.addAttribute("article", service.getArticle(boardNo));
-		model.addAttribute("p", paging);  // 위에서 파라미터로 @ModelAttribute("p") PageVO paging 이렇게 받아도 된다!
+		model.addAttribute("p", search);  // 위에서 파라미터로 @ModelAttribute("p") PageVO paging 이렇게 받아도 된다!
 		
 		return "board/content";
 	}
