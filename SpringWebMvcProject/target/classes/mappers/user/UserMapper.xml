@@ -4,10 +4,49 @@
     
 <mapper namespace="com.spring.mvc.user.repository.IUserMappper">
 	
+	
+	<!-- DB 컬럼명과 VO 클래스의 필드명 맵핑작업 -->
+	<resultMap id="UserMap" type="com.spring.mvc.user.model.UserVO">
+		
+		<id property="account" column="account" />
+		<result property="password" column="password"/>
+		<result property="content" column="content"/>
+		<result property="name" column="name"/>
+		<result property="regDate" column="reg_date"/>
+		
+	</resultMap>
+	
+	
+	
+	
+
+	
 	<!-- 회원가입 SQL -->
 	<insert id="register">
 		INSERT INTO mvc_user (account, password, name)
 		VALUES (#{account}, #{password}, #{name})	
 	</insert>
+	
+	
+	<!-- 회원탈퇴 SQL -->
+	<delete id="delete">
+		DELETE FROM mvc_user
+		WHERE account = #{account}
+	</delete>
+	
+	
+	<!-- 회원조회 SQL -->
+	<select id="selectOne" resultMap="UserMap">
+		SELECT * FROM mvc_user
+		WHERE account = #{account}
+	</select>
+	
+	
+	<!-- 전체회원 조회 SQL -->
+	<select id="selectAll" resultMap="UserMap">
+		SELECT * FROM mvc_user
+	</select>
+	
+	
 	
 </mapper>

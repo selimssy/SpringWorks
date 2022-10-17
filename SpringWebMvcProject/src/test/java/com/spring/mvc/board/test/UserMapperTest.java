@@ -26,8 +26,21 @@ public class UserMapperTest {
 		user.setName("홍길동");
 		
 		mapper.register(user);
-		System.out.println("회원가입 성공!");
-		
+		System.out.println("회원가입 성공!");	
 		
 	}
+	
+	
+	
+	@Test
+	public void deleteTest() {
+		String account = "abc1234";
+		mapper.delete(account);
+		System.out.println("회원탈퇴 성공!");
+	}
+	
+	
+	
+	
+	
 }
