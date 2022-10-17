@@ -98,7 +98,7 @@
 
 			<div class="modal-body">
 
-				<form action="<c:url value='/user/register'/>" name="signup" id="signUpForm" method="post"
+				<form action="#" name="signup" id="signUpForm" method="post"
 					style="margin-bottom: 0;">
 					<table
 						style="cellpadding: 0; cellspacing: 0; margin: 0 auto; width: 100%">
@@ -157,6 +157,7 @@
 								placeholder="한글로 최대 6자"></td>
 						</tr>
 						
+						<!--   이메일은 일단 주석처리~
 						<tr>
 							<td style="text-align: left">
 								<p><strong>이메일을 입력해주세요.</strong>&nbsp;&nbsp;&nbsp;<span id="emailChk"></span></p>
@@ -168,7 +169,8 @@
 								required="required" aria-required="true"
 								style="margin-bottom: 25px; width: 100%; height: 40px; border: 1px solid #d9d9de"
 								placeholder="ex) izone@produce.com"></td>
-						</tr>
+						</tr> 
+						-->
 
 						<tr>
 							<td style="padding-top: 10px; text-align: center">
@@ -176,7 +178,8 @@
 							</td>
 						</tr>
 						<tr>
-							<td style="width: 100%; text-align: center; colspan: 2;"><input
+							<td style="width: 100%; text-align: center; colspan: 2;">
+							<input
 								type="button" value="회원가입" 
 								class="btn form-control tooltipstered" id="signup-btn"
 								style="background-color: #ff52a0; margin-top: 0; height: 40px; color: white; border: 0px solid #388E3C; opacity: 0.8">
@@ -190,12 +193,89 @@
 	</div>
 </div>
 
+
+<!--  
 <script src="<c:url value='/js/izone-user-validation.js'/>"></script>
+-->
 
 
 
-
-
+<script type="text/javascript">
+	
+	// 제이쿼리 시작
+	$(function(){
+		
+		// 아이디 중복확인 keyup 이벤트(키 누를때마다 이벤트 발생)
+		$("#user_id").keyup(function(){
+			
+			// 아이디가 공백일 경우 상태표시
+			if($(this).val() === ""){
+				$(this).css("background-color", "pink");
+				$("#idChk").html("<b style='font-size:14px; color:green;'>[아이디를 입력해주세요]</b>")
+			}else{
+				$(this).css("background-color", "aqua");
+				$("#idChk").html("<p></p>")
+			}
+			
+		})
+		
+		
+		
+		
+		// 회원가입 버튼 클릭 이벤트
+		$("#signup-btn").click(function(){
+			
+			// 아이디 정보
+			const id = $("#user_id").val();
+			console.log(id)
+			// 패스워드 정보
+			const pw = $("#password").val();
+			console.log(pw)
+			// 이름 정보
+			const name = $("#user_name").val();
+			console.log(name)
+			
+			
+			
+			// 데이터 변수(자바스크립트 객체) 만들기 
+			const user = {
+				// key를 VO의 필드명과 똑같이 해줘야!
+				account: id,
+				password: pw,
+				name: name
+			}
+			
+		
+			// 클라이언트에서 서버와 통신하는 ajax함수(비동기 통신)  // key: value 형태
+			$.ajax({
+				type: "POST",  // 서버에 전송하는 HTTP요청 방식(POST, GET, PUT, FETCH, DELETE)
+				url: "/user/",  // http부터 풀로 적어도 되고 URI만 적어도 된다
+				headers: {
+					"Content-Type": "application/json"  // 서버로 json데이터 전송
+				}, // 요청 헤더 정보
+				dataType: "text",   // 응답받을 데이터의 형태(text, xml, html, json)
+				data: JSON.stringify(user), // 서버로 전송할 데이터  // JSON.stringify() : 자바스크립트 객체를 json 문자열로 변환
+				success: function(result){  // 통신 성공시 서버가 갖다준 데이터를 매개변수(result)에 저장 
+					                        // ex. 회원가입 통신 성공시 : 서버가 보낸 joinSuccess 문자열을 매개변수 result에 저장!  
+					console.log("통신 성공!" + result)
+					if(result === "joinSuccess"){
+						alert("회원가입에 성공했습니다!");
+						location.href="/";
+					}else{
+						alert("회원가입 실패");
+					}
+				},   // 통신 성공시 처리할 내용들을 함수 내부에 작성		
+				error: function(){
+					console.log("통신 실패!")
+				}  // 통신 실패시 처리할 내용들을 함수 내부에 작성
+			})
+			
+		})
+		
+	})
+	
+	
+</script>
 
 
 

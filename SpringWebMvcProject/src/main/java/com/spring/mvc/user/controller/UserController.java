@@ -35,6 +35,30 @@ public class UserController {
 	
 	
 	
+	// 아이디 중복확인 요청 처리
+	@GetMapping("/checkId")
+	public String checkId(@RequestBody String account) {
+		
+		System.out.println("/user/checkId 요청 : GET");
+		System.out.println("param : " + account);
+		String result = null;
+		
+		Integer checkNum = service.checkId(account);
+		if(checkNum == 1) {
+			System.out.println("아이디가 중복됨!");
+			result = "NO";
+		}else {
+			System.out.println("아이디 사용가능!");
+			result = "OK";
+		}
+		
+		return result;
+		
+	}
+	
+	
+	
+	
 	// 회원탈퇴 요청 처리
 	//@RequestMapping(value="/", method=RequestMethod.DELETE)   // 이 방법 잊지말자ㅋㅋ
 	@DeleteMapping("/{account}")

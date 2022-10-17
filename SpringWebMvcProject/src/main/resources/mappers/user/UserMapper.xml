@@ -28,6 +28,14 @@
 	</insert>
 	
 	
+	<!-- 아이디 중복확인 SQL -->
+	<select id="checkId" resultType="int">
+		SELECT COUNT(*)
+		FROM mvc_user
+		WHERE account = #{account}
+	</select>
+	
+	
 	<!-- 회원탈퇴 SQL -->
 	<delete id="delete">
 		DELETE FROM mvc_user
