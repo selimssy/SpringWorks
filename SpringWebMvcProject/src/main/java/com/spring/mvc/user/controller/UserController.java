@@ -3,6 +3,7 @@ package com.spring.mvc.user.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,10 +37,10 @@ public class UserController {
 	
 	
 	// 아이디 중복확인 요청 처리
-	@GetMapping("/checkId")
+	@PostMapping("/checkId")
 	public String checkId(@RequestBody String account) {
 		
-		System.out.println("/user/checkId 요청 : GET");
+		System.out.println("/user/checkId 요청 : POST");
 		System.out.println("param : " + account);
 		String result = null;
 		
@@ -55,6 +56,44 @@ public class UserController {
 		return result;
 		
 	}
+	
+	
+	
+	
+	// 로그인 요청 처리
+	@PostMapping("/loginCheck")
+	public String loginCheck(@RequestBody UserVO user) {
+		
+		/*
+		  # 클라이언트가 전송한 id값과 pw값을 가지고 DB에서 회원의 정보를 조회해서
+		    불러온 다음 값 비교를 통해
+		     1. 아이디가 없을 경우 클라이언트 측으로 문자열 "idFail" 전송
+		     2. 비밀번호가 틀렸을 경우 문자열 "pwFail" 전송
+		     3. 로그인 성공시 문자열 "loginSuccess" 전송
+		  */
+
+		
+		String result = null;
+		
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		UserVO dbUser = service.selectOne(user.getAccount());
+		
+		System.out.println(user);
+		System.out.println(dbUser);
+		
+		if(dbUser == null) {
+			result = "idFail";
+		}else {
+			if(encoder.matches(user.getPassword(), dbUser.getPassword())) {
+				result = "loginSuccess";
+			}else {
+				result = "pwFail";
+			}
+		}
+		
+		return result;
+	}
+	
 	
 	
 	
