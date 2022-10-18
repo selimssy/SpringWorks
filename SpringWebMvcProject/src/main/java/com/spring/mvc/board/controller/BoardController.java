@@ -91,10 +91,11 @@ public class BoardController {
 	@GetMapping("/write")
 	public String write(HttpSession session, RedirectAttributes ra) {
 		
-		if(session.getAttribute("login") == null) {
-			ra.addFlashAttribute("msg", "notLogin");
-			return "redirect:/";
-		}
+	  // 이젠 인터셉터가 이걸 처리하도록!!
+//		if(session.getAttribute("login") == null) {
+//			ra.addFlashAttribute("msg", "notLogin");
+//			return "redirect:/";
+//		}
 		
 		return "board/write";
 	}

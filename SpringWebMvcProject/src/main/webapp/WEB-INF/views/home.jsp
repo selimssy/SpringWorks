@@ -4,7 +4,7 @@
 <jsp:include page="include/header.jsp" />
 
 
-<!--  
+<!--  인터셉터 처리 후 컨트롤러에서 자바스크립트로 처리!
 <script type="text/javascript">
 	
 	const msg = "${msg}"
