@@ -2,6 +2,9 @@ package com.spring.mvc.user.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.mvc.user.model.UserVO;
 import com.spring.mvc.user.service.IUserService;
@@ -62,7 +66,17 @@ public class UserController {
 	
 	// 로그인 요청 처리
 	@PostMapping("/loginCheck")
-	public String loginCheck(@RequestBody UserVO user) {
+	public String loginCheck(@RequestBody UserVO user,
+							 /*HttpServletRequest request*/
+			                  HttpSession session) {
+		
+		// 서버에서 세션객체를 얻는 방법
+		// 1. HttpServletRequest 객체 사용
+		//HttpSession session = request.getSession(); // 한번 돌아가는 방법이긴 하지만 외부 API 사용시 request 객체만 쓸 수 있는 경우를 대비해 알아둬야!
+		// 2. HttpSession 객체 사용
+		    // -> 파라미터에 HttpSession session 해서 바로 session. 으로 사용
+		
+		String result = null;
 		
 		/*
 		  # 클라이언트가 전송한 id값과 pw값을 가지고 DB에서 회원의 정보를 조회해서
@@ -72,8 +86,6 @@ public class UserController {
 		     3. 로그인 성공시 문자열 "loginSuccess" 전송
 		  */
 
-		
-		String result = null;
 		
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		UserVO dbUser = service.selectOne(user.getAccount());
@@ -86,12 +98,31 @@ public class UserController {
 		}else {
 			if(encoder.matches(user.getPassword(), dbUser.getPassword())) {
 				result = "loginSuccess";
+				session.setAttribute("login", dbUser);
 			}else {
 				result = "pwFail";
 			}
 		}
 		
 		return result;
+	}
+	
+	
+	
+	
+	
+	// 로그아웃 요청 처리
+	@GetMapping("/logout")
+	public ModelAndView logout(HttpSession session) {  // @RestController 에서도 뷰리졸버 써야될 땐 ModelAndView로!!★
+		
+		UserVO user = (UserVO)session.getAttribute("login"); // getAttribute 반환타입이 Object라서 다운캐스팅해야! 
+		
+		if(user != null) {
+			session.removeAttribute("login");  // 좀더 확실하게 처리하기 위해
+			session.invalidate();
+		}
+		
+		return new ModelAndView("redirect:/");  
 	}
 	
 	

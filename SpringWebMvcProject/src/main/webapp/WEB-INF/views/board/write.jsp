@@ -19,9 +19,9 @@ header.masthead {
 
         <form role="form" action="<c:url value='/board/write' />" method="post">
         
-          <div class="form-group">
+          <div class="form-group" hidden="hidden">
             <label>작성자</label>
-            <input type="text" class="form-control" name='writer'>
+            <input type="hidden" class="form-control" name='writer' value="${login.name}">
           </div>
           
           <div class="form-group">

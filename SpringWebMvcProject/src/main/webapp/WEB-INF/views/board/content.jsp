@@ -49,11 +49,14 @@ header.masthead {
 	          <!-- 이런식으로 location.href 경로를 통해 가는거는 get방식이다! -->
 	          <!-- 그래서 목록, 수정은 get방식이 되고 boardNo hidden이랑 삭제는 post 방식이 된다 -->
 	          
-	          <input id="modBtn" type="button" value="수정" class="btn btn-warning"  style="color:white;">&nbsp;&nbsp;
 	          
-	          <input type="submit" value="삭제" class="btn btn-danger" onclick="return confirm('정말로 삭제하시겠습니까?')">&nbsp;&nbsp;
-        	  <!-- return confirm은 예 아니오 버튼이 뜨는데 예를 누르면 true가 리턴되면서 submit이 전송된다!! (아니요 누르면 false리턴되고 submit 전송되지 않음)  -->	
-        
+	          <c:if test="${login.name == article.writer}">
+	                      <!-- 원래는 테이블 조인해서 id를 비교해야!!★★ -->
+		          <input id="modBtn" type="button" value="수정" class="btn btn-warning"  style="color:white;">&nbsp;&nbsp;
+		          
+		          <input type="submit" value="삭제" class="btn btn-danger" onclick="return confirm('정말로 삭제하시겠습니까?')">&nbsp;&nbsp;
+	        	  <!-- return confirm은 예 아니오 버튼이 뜨는데 예를 누르면 true가 리턴되면서 submit이 전송된다!! (아니요 누르면 false리턴되고 submit 전송되지 않음)  -->	
+        	  </c:if>
         </form>
 
 
