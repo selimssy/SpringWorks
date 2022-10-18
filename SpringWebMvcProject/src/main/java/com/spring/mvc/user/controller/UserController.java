@@ -2,7 +2,9 @@ package com.spring.mvc.user.controller;
 
 import java.util.List;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,7 +70,8 @@ public class UserController {
 	@PostMapping("/loginCheck")
 	public String loginCheck(@RequestBody UserVO user,
 							 /*HttpServletRequest request*/
-			                  HttpSession session) {
+			                  HttpSession session,
+			                  HttpServletResponse response) {
 		
 		// 서버에서 세션객체를 얻는 방법
 		// 1. HttpServletRequest 객체 사용
@@ -97,8 +100,24 @@ public class UserController {
 			result = "idFail";
 		}else {
 			if(encoder.matches(user.getPassword(), dbUser.getPassword())) {
-				result = "loginSuccess";
 				session.setAttribute("login", dbUser);
+				result = "loginSuccess";
+				
+				long limitTime = 60 * 60 * 24 * 90;
+				
+				// 자동로그인 체크시 처리
+				if(user.isAutoLogin()) {
+					
+					System.out.println("자동로그인 쿠키 생성중...");
+					
+					Cookie loginCookie = new Cookie("loginCookie", session.getId());
+					loginCookie.setPath("/"); // 쿠키경로
+					loginCookie.setMaxAge((int)limitTime);
+				
+					response.addCookie(loginCookie); // 서버에서 생성한 쿠키를 클라이언트에게 보내줌
+				}
+				
+				
 			}else {
 				result = "pwFail";
 			}

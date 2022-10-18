@@ -9,6 +9,17 @@ public class UserVO {
 	private String name;
 	private Date regDate;
 	
+	// 자동로그인 체크 여부
+	private boolean autoLogin;
+	
+	public boolean isAutoLogin() {
+		return autoLogin;
+	}
+	
+	public void setAutoLogin(boolean autoLogin) {
+		this.autoLogin = autoLogin;
+	}
+	
 	public String getAccount() {
 		return account;
 	}
@@ -33,13 +44,15 @@ public class UserVO {
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
 	}
-	
-	
+
 	@Override
 	public String toString() {
 		return "UserVO [account=" + account + ", password=" + password + ", name=" + name + ", regDate=" + regDate
-				+ "]";
+				+ ", autoLogin=" + autoLogin + "]";
 	}
+	
+	
+	
 	
 	
 	
