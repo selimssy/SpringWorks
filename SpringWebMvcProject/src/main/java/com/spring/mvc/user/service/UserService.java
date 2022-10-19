@@ -1,6 +1,9 @@
 package com.spring.mvc.user.service;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -55,4 +58,23 @@ public class UserService implements IUserService {
 	public List<UserVO> selectAll() {
 		return mapper.selectAll();
 	}
+	
+	@Override
+	public void keepLogin(String sessionId, Date limitDate, String account) {
+		
+		Map<String, Object> datas = new HashMap<>();
+		datas.put("sessionId", sessionId);
+		datas.put("limitTime", limitDate);
+		datas.put("account", account);
+		
+		// Mapper에게 데이터 여러개를 보내줄 때는 1.객체 2.Map 둘 중 하나로 보내야!!★
+		mapper.keepLogin(datas);  // 이 경우는 service와 IMapper의 매개변수가 다른 경우이다
+	}
+
+
+	@Override
+	public UserVO getUserWithSessionId(String sessionId) {
+		return mapper.getUserWithSessionId(sessionId);
+	}
+
 }

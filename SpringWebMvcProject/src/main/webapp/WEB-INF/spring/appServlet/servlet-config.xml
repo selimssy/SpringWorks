@@ -32,6 +32,7 @@
 	<!-- 인터셉터 빈 등록 -->
 	<beans:bean id="testInterceptor" class="com.spring.mvc.commons.interceptor.TestInterceptor"/>
 	<beans:bean id="boardInterceptor" class="com.spring.mvc.commons.interceptor.BoardInterceptor"/>
+	<beans:bean id="AutoLoginInterceptor" class="com.spring.mvc.commons.interceptor.AutoLoginInterceptor"/>
 	
 	<!-- 인터셉터 설정 -->
 	<interceptors>
@@ -46,6 +47,11 @@
 			<mapping path="/board/modify"/>
 			<mapping path="/board/delete"/>
 			<beans:ref bean="boardInterceptor"/>
+		</interceptor>
+		
+		<interceptor>
+			<mapping path="/"/>
+			<beans:ref bean="AutoLoginInterceptor"/>
 		</interceptor>
 	</interceptors>
 	

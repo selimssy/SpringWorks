@@ -1,5 +1,6 @@
 package com.spring.mvc.user.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.util.WebUtils;
 
 import com.spring.mvc.user.model.UserVO;
 import com.spring.mvc.user.service.IUserService;
@@ -115,6 +117,12 @@ public class UserController {
 					loginCookie.setMaxAge((int)limitTime);
 				
 					response.addCookie(loginCookie); // 서버에서 생성한 쿠키를 클라이언트에게 보내줌
+					
+					// 자동로그인 유지시간을 날짜객체로 변환
+					long expiredDate = System.currentTimeMillis() + (limitTime * 1000);
+					Date limitDate = new Date(expiredDate);  // 3개월 뒤의 날짜를 long타입 밀리초로 대입
+					
+					service.keepLogin(session.getId(), limitDate, user.getAccount());
 				}
 				
 				
@@ -132,13 +140,29 @@ public class UserController {
 	
 	// 로그아웃 요청 처리
 	@GetMapping("/logout")
-	public ModelAndView logout(HttpSession session) {  // @RestController 에서도 뷰리졸버 써야될 땐 ModelAndView로!!★
+	public ModelAndView logout(HttpServletRequest request, HttpServletResponse response, HttpSession session) {  // @RestController 에서도 뷰리졸버 써야될 땐 ModelAndView로!!★
 		
 		UserVO user = (UserVO)session.getAttribute("login"); // getAttribute 반환타입이 Object라서 다운캐스팅해야! 
 		
 		if(user != null) {
 			session.removeAttribute("login");  // 좀더 확실하게 처리하기 위해
 			session.invalidate();
+			
+			/*  로그아웃 시 자동로그인 쿠기 삭제 및 DB에서 해당 회원 session_id 제거
+		     1. loginCookie 쿠키 존재여부 확인
+		     2. 쿠기가 존재한다면 쿠키의 수명을 0초로 재설정(setMaxAge 사용)
+		     3. 응답객체를 통해 로컬에 0초짜리 쿠키 재전송(=쿠키삭제)
+		     4. service를 통해 keepLogin을 호출하여 DB컬럼 레코드 재설정
+		        (session_id -> "none", limit_time -> 현재시간으로)  
+		  */
+		
+			Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
+			if(loginCookie != null) {
+				loginCookie.setMaxAge(0);
+				response.addCookie(loginCookie);
+				service.keepLogin("none", new Date(), user.getAccount());
+			}
+			
 		}
 		
 		return new ModelAndView("redirect:/");  

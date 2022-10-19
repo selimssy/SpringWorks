@@ -8,6 +8,8 @@ public class UserVO {
 	private String password;
 	private String name;
 	private Date regDate;
+	private String sessionId;
+	private Date limitTime;
 	
 	// 자동로그인 체크 여부
 	private boolean autoLogin;
@@ -43,6 +45,22 @@ public class UserVO {
 	}
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
+	}
+
+	public String getSessionId() {
+		return sessionId;
+	}
+
+	public void setSessionId(String sessionId) {
+		this.sessionId = sessionId;
+	}
+
+	public Date getLimitTime() {
+		return limitTime;
+	}
+
+	public void setLimitTime(Date limitTime) {
+		this.limitTime = limitTime;
 	}
 
 	@Override
