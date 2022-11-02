@@ -31,7 +31,9 @@ header.masthead {
 
           <div class="form-group">
             <label>내용</label>
-            <textarea class="form-control" rows="5" name='content' readonly>${article.content}</textarea>
+            <!-- 
+            <textarea class="form-control" rows="5" name='content' readonly>${article.content}</textarea>  -->
+            <div style="background-color: #ddd">${article.content}</div>
           </div>
 
 
