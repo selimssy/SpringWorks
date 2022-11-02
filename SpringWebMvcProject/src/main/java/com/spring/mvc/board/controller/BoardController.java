@@ -207,6 +207,7 @@ public class BoardController {
 			            String fileName = file.getOriginalFilename();
 			            byte[] bytes = file.getBytes();
 			           
+			            //String uploadPath = req.getSession().getServletContext().getRealPath("/resources/images/noticeimg"); //저장경로
 			            String uploadPath = req.getSession().getServletContext().getRealPath("/resources/images/noticeimg"); //저장경로
 			            System.out.println("uploadPath:"+uploadPath);
 
