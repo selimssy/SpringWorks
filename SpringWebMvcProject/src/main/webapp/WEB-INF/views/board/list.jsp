@@ -46,6 +46,7 @@ header.masthead {
 							<tr style="background-color: #ff52a0; margin-top: 0; height: 40px; color: white; border: 0px solid #f78f24; opacity: 0.8">
 								<th>#번호</th>
 								<th>작성자</th>
+								<th>썸네일테스트</th> 
 								<th>제목</th>
 								<th>작성일</th>
 								<th>조회수</th>
@@ -60,12 +61,17 @@ header.masthead {
 							</tr>
 						</c:if>
 
+
 						<!-- 게시물이 들어갈 공간 -->
 						<c:if test="${articles.size() > 0}">
 							<c:forEach var="B" items="${articles}">
 								<tr style="color: #ff52a0;">
 									<td>${B.boardNo}</td>
 									<td>${B.writer}</td>
+									
+									<td>
+										<img alt="thumb_image" src="${B.thumbImg}" width="40px" height="40px">
+									</td>
 																																				  <!-- 처음 게시판 들어가면 page 파라미터가 없으니까 -->
 									<td><a style="margin-top: 0; height: 40px; color: orange;" href="<c:url value='/board/content/${B.boardNo}${param.page == null ? pc.makeURI(1) : pc.makeURI(param.page)}' />">
 											${B.title}

@@ -9,6 +9,9 @@ import com.spring.mvc.board.model.BoardVO;
 import com.spring.mvc.board.repository.IboardMapper;
 import com.spring.mvc.commons.SearchVO;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 
 @Service
 public class BoardService implements IBoardService {
@@ -20,9 +23,18 @@ public class BoardService implements IBoardService {
 	
 	@Override
 	public void insert(BoardVO article) {
+		
+		// 썸네일 경로 넣는 작업
+		String content = article.getContent();
+		String imgReg = "(<img[^>]*src\s*=\s*[\"']?([^>\"\']+)[\"']?[^>]*>)";
+		Pattern pattern = Pattern.compile(imgReg);
+		Matcher matcher = pattern.matcher(content);
+		if(matcher.find()) {
+			article.setThumbImg(matcher.group(2));
+		}
+		
 		mapper.insert(article);
 	}
-	
 
 	@Override
 	public BoardVO getArticle(Integer boardNo) {

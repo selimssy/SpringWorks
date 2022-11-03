@@ -7,3 +7,7 @@ CREATE TABLE mvc_board (
 	reg_date TIMESTAMP DEFAULT NOW(),
 	view_cnt INT DEFAULT 0
 );
+
+
+-- 썸네일이미지 경로 컬럼 추가
+ALTER TABLE mvc_board ADD COLUMN thumb_img VARCHAR(1000);

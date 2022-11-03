@@ -11,6 +11,10 @@ public class BoardVO {
 	private Date regDate;
 	private Integer viewCnt;
 	
+	// 썸네일 이미지 경로
+	private String thumbImg;
+	
+
 	// 신규 게시물에 new마크 붙일지 말지 결정하는 논리필드 선언
 	private boolean newMark;
 	
@@ -60,13 +64,24 @@ public class BoardVO {
 		this.viewCnt = viewCnt;
 	}
 	
-	
-	
+	public String getThumbImg() {
+		return thumbImg;
+	}
+
+	public void setThumbImg(String thumbImg) {
+		this.thumbImg = thumbImg;
+	}
+
 	@Override
 	public String toString() {
 		return "BoardVO [boardNo=" + boardNo + ", title=" + title + ", content=" + content + ", writer=" + writer
-				+ ", regDate=" + regDate + ", viewCnt=" + viewCnt + "]";
+				+ ", regDate=" + regDate + ", viewCnt=" + viewCnt + ", thumbImg=" + thumbImg + ", newMark=" + newMark
+				+ "]";
 	}
+
+
+	
+	
 	
 	
 	
