@@ -218,7 +218,7 @@ public class BoardController {
 			            String fileName2 = UUID.randomUUID().toString();
 			            uploadPath = uploadPath + "/" + fileName2 +fileName;
 			            
-			            out = new FileOutputStream(new File(uploadPath));
+			            out = new FileOutputStream(new File(uploadPath)); 
 			            out.write(bytes);
 			            
 			            printWriter = resp.getWriter();
