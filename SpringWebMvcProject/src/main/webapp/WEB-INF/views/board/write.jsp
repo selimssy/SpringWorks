@@ -42,6 +42,17 @@ header.masthead {
 			         filebrowserUploadUrl:  "/board/fileupload"
 			     });
 		  </script>
+		  
+		  
+		  
+		  
+		  <!-- 이걸...해시태그 어떻게받지  -->
+		  <!-- input readonly로 해보쟈 input길이를 auto로 할수는없나ㅠ  -->
+		  <input type="hidden" name="hasht" value="테스트11">
+		  <input type="hidden" name="hasht" value="테스트22">
+		  <input type="hidden" name="hasht" value="테스트33">
+		  
+		  
 			
          <input type="submit" value="등록" class="btn form-control"
 			style="background-color: #ff52a0; margin-top: 0; height: 40px; color: white; border: 0px solid #f78f24; opacity: 0.8">

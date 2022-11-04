@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -118,9 +120,10 @@ public class BoardController {
 	
 	// 글쓰기 처리 요청
 	@PostMapping("/write")
-	public String write(BoardVO article, RedirectAttributes ra) {
+	public String write(@RequestParam(value="hasht") String[] hasht, BoardVO article, RedirectAttributes ra) {
 		
 		System.out.println("parameter : " + article);  // t) 이런 파라미터 잘 들어오는지 확인하는습관 들이는게 좋다!
+		System.out.println("이게 되려나 : " + Arrays.toString(hasht));
 		service.insert(article);	
 		ra.addFlashAttribute("msg", "regSuccess");
 		return "redirect:/board/list";

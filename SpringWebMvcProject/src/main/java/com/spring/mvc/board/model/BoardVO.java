@@ -14,6 +14,10 @@ public class BoardVO {
 	// 썸네일 이미지 경로
 	private String thumbImg;
 	
+	// 해시태그 배열
+	private String[] hashtag;
+
+	
 
 	// 신규 게시물에 new마크 붙일지 말지 결정하는 논리필드 선언
 	private boolean newMark;
@@ -70,6 +74,14 @@ public class BoardVO {
 
 	public void setThumbImg(String thumbImg) {
 		this.thumbImg = thumbImg;
+	}
+	
+	public String[] getHashtag() {
+		return hashtag;
+	}
+
+	public void setHashtag(String[] hashtag) {
+		this.hashtag = hashtag;
 	}
 
 	@Override
