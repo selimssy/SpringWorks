@@ -6,6 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+	*{margin:0;}
+</style>
 </head>
 <body>
 	<!--  
@@ -13,7 +16,7 @@
 	파일명 : ${savedName}
 	<br> -->
 	
-	<img src="${uploadpath}" width="100%" >   <!-- 크기 자동조절 등은 뒤에서 해결~ -->
+	<img src="${uploadpath}" width="100%">   <!-- 크기 자동조절 등은 뒤에서 해결~ -->  <!-- 4:3으로 하쟈 -->
 	 
 	
 	<!--  이거 무슨 의미지

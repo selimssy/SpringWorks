@@ -13,7 +13,7 @@
         border-style: solid;
     }*/
     
-    #fra{width:1000px; height:1000px}
+    #fra{width:500px; height:500px}
 </style>
 </head>
 <body>

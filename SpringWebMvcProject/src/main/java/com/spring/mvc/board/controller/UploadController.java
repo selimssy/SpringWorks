@@ -20,7 +20,7 @@ public class UploadController {
 	//String uploadPath = request.getSession().getServletContext().getRealPath("/resources/images/noticeimg"); //저장경로
  
     
-    @GetMapping("uploadForm")
+    @GetMapping("/uploadForm")
     public String uploadForm() {
         //upload/uploadForm.jsp로 포워딩
     	return "fileuploadtest";
