@@ -19,6 +19,7 @@
 	<img src="${uploadpath}" width="100%">   <!-- 크기 자동조절 등은 뒤에서 해결~ -->  <!-- 4:3으로 하쟈 -->
 	 
 	
+	
 	<!--  이거 무슨 의미지
 	<script>
 	    let uploadpath = "${uploadpath}";
