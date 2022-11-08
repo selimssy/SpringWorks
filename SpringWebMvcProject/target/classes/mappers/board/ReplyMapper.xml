@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.spring.mvc.board.repository.IReplyMapper">
+
+
+	<!-- DB 컬럼명과 VO 클래스의 필드명 맵핑작업 -->
+	<resultMap id="ReplyMap" type="com.spring.mvc.board.model.ReplyVO">
+		
+		<id property="replyNo" column="reply_no" />
+		<result property="boardNo" column="board_no"/>
+		<result property="content" column="content"/>
+		<result property="replyer" column="replyer"/>
+		<result property="replyDate" column="replydate"/>
+		<result property="updateDate" column="updatedate"/>
+	
+	</resultMap>
+	
+	
+	<insert id="register">
+		INSERT INTO mvc_reply (board_no, content, replyer) 
+		VALUES(#{boardNo}, #{content}, #{replyer})
+	</insert>
+	
+	
+	<select id="getReplyList" resultMap="BoardMap">
+		SELECT * FROM mvc_reply
+		WHERE board_no = #{boardNo}
+	</select>
+
+</mapper>

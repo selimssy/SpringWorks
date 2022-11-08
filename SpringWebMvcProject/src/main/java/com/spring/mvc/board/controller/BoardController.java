@@ -29,7 +29,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.JsonObject;
 import com.spring.mvc.board.model.BoardVO;
+import com.spring.mvc.board.model.ReplyVO;
 import com.spring.mvc.board.service.IBoardService;
+import com.spring.mvc.board.service.IReplyService;
 import com.spring.mvc.commons.PageCreator;
 import com.spring.mvc.commons.PageVO;
 import com.spring.mvc.commons.SearchVO;
@@ -41,6 +43,8 @@ public class BoardController {
 	@Autowired
 	private IBoardService service;
 	
+	@Autowired
+	private IReplyService replyService;
 	
 	
 	// 게시글 목록 불러오기 요청(페이징처리 이전)
@@ -142,6 +146,12 @@ public class BoardController {
 		model.addAttribute("article", service.getArticle(boardNo));
 		model.addAttribute("p", search);  // 위에서 파라미터로 @ModelAttribute("p") PageVO paging 이렇게 받아도 된다!
 		
+		
+		// 댓글관련 작업
+		List<ReplyVO> replyList = replyService.getReplyList(boardNo);
+		model.addAttribute("replyList", replyList);
+		
+		
 		return "board/content";
 	}
 	
@@ -186,6 +196,20 @@ public class BoardController {
 		ra.addFlashAttribute("msg", "modSuccess");
 		return "redirect:/board/content/" + article.getBoardNo();
 	}
+	
+	
+	
+	
+	
+	// 댓글 등록
+	@PostMapping("/reply")
+	public String reply(ReplyVO replyVO, RedirectAttributes ra) {
+		
+		replyService.register(replyVO);
+		
+		return "redirect:/board/content/" + replyVO.getBoardNo();
+	}
+
 	
 	
 	

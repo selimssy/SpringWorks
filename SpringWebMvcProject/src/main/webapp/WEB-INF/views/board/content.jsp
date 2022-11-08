@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>   
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%> 
 <jsp:include page="../include/header.jsp" />
 <style>
 header.masthead {
@@ -61,7 +62,41 @@ header.masthead {
         	  </c:if>
         </form>
 
-
+		
+		
+		<!-- 댓글영역 -->
+		<div class="comment">
+			<h4>댓글</h4>
+			<ol class="replyList">
+				<c:forEach items="${replyList}" var="list">
+					<li>
+						<p> 작성자: ${list.replyer} &nbsp; &nbsp;
+						    (작성일: <fmt:formatDate value="${list.replyDate}" pattern="yyyy년 MM월 dd일 a hh:mm:ss" />)						
+						</p>
+						<p>${list.content}</p>
+					</li>
+				</c:forEach>
+			</ol>
+		</div>
+		
+		
+		<!-- 댓글 등록 폼 -->
+		<form action="<c:url value='/board/reply'/>" method="post" id="replyForm">
+			<input type="hidden" name="boardNo" value="${article.boardNo}">
+			
+			<ul>
+				<li>
+					<label>작성자</label>
+					<input type="text" name="replyer" id="replyer" value="${login.name}" readonly>
+				</li>
+				<li>
+					<textarea rows="5" cols="60" name="content" ></textarea>
+					<button type="button" id="replyBtn">댓글 등록</button>
+				</li>
+			</ul>
+		</form>
+		
+		
 
       </div>
     </div>
@@ -106,6 +141,18 @@ header.masthead {
 			forElement.attr("method", "get");
 			forElement.submit();
 		})
+		
+		
+		
+		
+		// 댓글 등록
+		$("#replyBtn").click(function(){
+			//e.preventDefault();
+			console.log("댓글등록 클릭");
+			
+			$("#replyForm").submit();
+		})
+				
 		
 	});
 
