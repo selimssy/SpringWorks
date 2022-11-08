@@ -1,5 +1,6 @@
 package com.spring.mvc.board.model;
 
+import java.util.Arrays;
 import java.util.Date;
 
 public class BoardVO {
@@ -10,6 +11,9 @@ public class BoardVO {
 	private String writer;
 	private Date regDate;
 	private Integer viewCnt;
+	
+	//댓글 개수
+	private int replyCnt;
 	
 	// 썸네일 이미지 경로
 	private String thumbImg;
@@ -83,18 +87,27 @@ public class BoardVO {
 	public void setHashtag(String[] hashtag) {
 		this.hashtag = hashtag;
 	}
+	
 
+	public int getReplyCnt() {
+		return replyCnt;
+	}
+
+	public void setReplyCnt(int replyCnt) {
+		this.replyCnt = replyCnt;
+	}
+
+	
 	@Override
 	public String toString() {
 		return "BoardVO [boardNo=" + boardNo + ", title=" + title + ", content=" + content + ", writer=" + writer
-				+ ", regDate=" + regDate + ", viewCnt=" + viewCnt + ", thumbImg=" + thumbImg + ", newMark=" + newMark
-				+ "]";
+				+ ", regDate=" + regDate + ", viewCnt=" + viewCnt + ", replyCnt=" + replyCnt + ", thumbImg=" + thumbImg
+				+ ", hashtag=" + Arrays.toString(hashtag) + ", newMark=" + newMark + "]";
 	}
 
+	
 
-	
-	
-	
+
 	
 	
 }

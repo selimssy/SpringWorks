@@ -38,6 +38,13 @@ public interface IboardMapper {
 	
 	
 	
+	// 댓글 개수 조회
+	void updateReplyCnt(Integer boardNo);
+	
+	
+	
+	
+	
 	/*
 	// 게시글 목록 조회기능(페이징처리 이전)
 	List<BoardVO> getArticleList();

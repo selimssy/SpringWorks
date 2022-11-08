@@ -14,6 +14,7 @@
 		<result property="regDate" column="reg_date"/>
 		<result property="viewCnt" column="view_cnt"/>
 		<result property="thumbImg" column="thumb_img"/>
+		<result property="replyCnt" column="reply_cnt"/>
 		
 	</resultMap>
 
@@ -96,6 +97,15 @@
 	</select>
 	
 	
+	
+	
+	<update id="updateReplyCnt">
+		UPDATE mvc_board b
+		SET b.reply_cnt = (SELECT count(reply_no)
+						   FROM mvc_reply
+						   WHERE board_no = #{boardNO})
+		WHERE b.board_no = #{boardNO}
+	</update>
 	
 	
 	

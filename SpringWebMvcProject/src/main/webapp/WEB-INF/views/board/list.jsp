@@ -75,6 +75,8 @@ header.masthead {
 																																				  <!-- 처음 게시판 들어가면 page 파라미터가 없으니까 -->
 									<td><a style="margin-top: 0; height: 40px; color: orange;" href="<c:url value='/board/content/${B.boardNo}${param.page == null ? pc.makeURI(1) : pc.makeURI(param.page)}' />">
 											${B.title}
+											<!-- 댓글 개수 -->
+											<b>[${B.replyCnt}]</b>
 										</a>
 										&nbsp; 
 										<c:if test="${B.newMark}">    
