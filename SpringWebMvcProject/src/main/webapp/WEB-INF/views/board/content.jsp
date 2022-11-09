@@ -71,7 +71,7 @@ header.masthead {
 				<c:forEach items="${replyList}" var="list">
 					<li>
 						<p> 작성자: ${list.replyer} &nbsp; &nbsp;
-						    (작성일: <fmt:formatDate value="${list.replyDate}" pattern="yyyy년 MM월 dd일 a hh:mm:ss" />)						
+						    (작성일: <fmt:formatDate value="${list.replyDate}" pattern="yyyy년 MM월 dd일 HH:mm:ss" />)						
 						</p>
 						<p>${list.content}</p>
 					</li>

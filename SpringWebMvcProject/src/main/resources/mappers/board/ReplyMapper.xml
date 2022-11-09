@@ -24,7 +24,7 @@
 	</insert>
 	
 	
-	<select id="getReplyList" resultMap="BoardMap">
+	<select id="getReplyList" resultMap="ReplyMap">
 		SELECT * FROM mvc_reply
 		WHERE board_no = #{boardNo}
 	</select>
